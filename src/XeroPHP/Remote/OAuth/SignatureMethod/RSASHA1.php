@@ -9,7 +9,7 @@ class RSASHA1 implements SignatureMethodInterface
     public static function generateSignature(array $config, $sbs, $secret)
     {
         // Fetch the private key
-        if (false === $private_key_id = openssl_pkey_get_private($config['rsa_private_key'])) {
+        if (false === $private_key_id = openssl_pkey_get_private($config['rsa_private_key'], ( $config['rsa_private_key_passphrase'] ?? '' ) )) {
             throw new Exception("Cannot access private key for signing: openssl_pkey_get_private('${config['rsa_private_key']}') returned false");
         }
 
